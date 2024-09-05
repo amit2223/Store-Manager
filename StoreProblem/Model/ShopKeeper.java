@@ -5,7 +5,7 @@ import Strategy.Strategy;
 public class ShopKeeper {
     private Shop shop;
     private Strategy strategy;
-    private int profit;
+    private double profit;
 
     public ShopKeeper(Shop shop , Strategy strategy)
     {
@@ -22,9 +22,10 @@ public class ShopKeeper {
             return;
         }
 
-        if(strategy.acceptOrReject(box) && shop.checkAvailablityAndFill(box))
+        if(shop.checkAvailablity(box) && strategy.acceptOrReject(box))
         {
-            profit += box.getLength();
+            shop.fill(box);
+            profit += box.getRent();
             System.out.println("Box accepted, Total Profit: "+profit);
             return ;
         }
@@ -32,7 +33,7 @@ public class ShopKeeper {
         System.out.println("Box rejected");
     }
 
-    public int getProfit() {
+    public double getProfit() {
         return profit;
     }
 }
