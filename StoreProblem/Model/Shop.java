@@ -6,6 +6,9 @@ public class Shop {
     int width;
     int[][] space;
 
+    int St_row;
+    int St_col;
+
     public Shop(String name , int length , int width)
     {
         this.name = name;
@@ -14,14 +17,13 @@ public class Shop {
         space = new int[width][length];
     }
 
-    boolean checkAvailablityAndFill(Box box)
+    boolean checkAvailablity(Box box)
     {
         int n= box.getLength();
         int m= box.getWidth();
-        int id = box.getId();
 
-        int St_row=-1;
-        int St_col=-1;
+        St_row=-1;
+        St_col=-1;
         for(int row=0;row<length;row++)
         {
             for(int col=0;col<width;col++)
@@ -57,24 +59,25 @@ public class Shop {
                     {
                         St_row = row;
                         St_col = col;
-                        fillSpace(St_row, St_col, n, m, id);
                         return true;
                     }
                 }
-
-
             }
         }
+        
         return false;
     }
 
-    void fillSpace(int row , int col , int n, int m,int id)
+    void fill(Box box)
     {
+        int n = box.getLength();
+        int m = box.getWidth();
+
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                space[row+i][col+j]=id;
+                space[St_row+i][St_col+j]=box.getId();
             }
         }
     }
@@ -88,5 +91,13 @@ public class Shop {
             
             System.err.println();
         }
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }
