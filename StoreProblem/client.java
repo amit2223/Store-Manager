@@ -1,7 +1,6 @@
 import Model.Box;
 import Model.Shop;
 import Model.ShopKeeper;
-//import Strategy.DefualtStrategy;
 import Strategy.OptimisedStrategy;
 
 import java.util.*;
@@ -15,22 +14,23 @@ class client{
         int width = sc.nextInt();
 
         Shop shop = new Shop("Kirana" , length , width);
-        ShopKeeper keeper = new ShopKeeper(shop , new OptimisedStrategy());
+        ShopKeeper keeper = new ShopKeeper(shop , new OptimisedStrategy(shop));
         int boxId = 1;
         
         while(true)
         {
-            System.out.println("Enter box dimension: ");
+            System.out.println("Enter box dimensions and rent: ");
             int x = sc.nextInt();
-            int y = sc.nextInt();
-            
-            if(x==-1||y==-1) //Input Stop conditoin
+
+            if(x==-1) //Input Stop conditoin
             {
                 shop.printSpace();
                 break;
             }
-            
-            keeper.boxRequest(new Box(boxId,x,y));
+            int y = sc.nextInt();
+            double rent = sc.nextDouble();
+    
+            keeper.boxRequest(new Box(boxId,x,y,rent));
             boxId++;
         }
     }
